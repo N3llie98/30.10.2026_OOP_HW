@@ -4,45 +4,40 @@ using namespace std;
 
 int main()
 {
-	// CLASS WORK
-	/*fstream inout("Text.txt", ios::in | ios::out | ios::app);
-
-	char buffer[100];
-	cin.getline(buffer, 100);
-	inout << buffer << endl;
-
-	inout.seekg(0, ios::beg);
-
-	char readbuffer[100];
-	while (!inout.eof()) {
-		inout.getline(readbuffer, 100);
-		cout << readbuffer;
-	}
-
-	inout.close();*/
-
-
-	// HOMEWORK
 	ifstream read("Text.txt");
 	char buffer[100];
 
 	// КІЛЬКІСТЬ РЯДКІВ
-	int linecount = 0;
+	int lineCount = 0;
 	while (!read.eof()) {
 		read.getline(buffer, 100);
-		linecount++;
+		lineCount++;
 	}
 
-	// повернути курсор на початок
 	read.seekg(0, ios::beg);
 
 	// КІЛЬКІСТЬ СЛІВ
-	int wordcount = 0;
+	int wordCount = 0;
 	while (!read.eof()) {
 		read >> buffer; // записує в буфер по словах
-		wordcount++;
+		wordCount++;
 	}
 
-	cout << "Linecount: " << linecount << "\nWordcount: " << wordcount;
+	read.seekg(0, ios::beg);
+
+	// КІЛЬКІСТЬ ЗАБОРОНЕНИХ СЛІВ
+	const int N = 2;
+	string forbiddenArr[N]{ "Cat","cat" };
+	int forbiddenCount = 0;
+	while (!read.eof()) {
+		read >> buffer;
+		for (int i = 0;i < N;i++) {
+			if (buffer == forbiddenArr[i]) {
+				forbiddenCount++;
+			}
+		}
+	}
+
+	cout << "LineCount: " << lineCount << "\nWordCount: " << wordCount << "\nForbiddenCount: " << forbiddenCount;
 	return 0;
 }
